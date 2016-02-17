@@ -1,19 +1,38 @@
 import scala.annotation.tailrec
+import org.junit.Assert._
+import org.junit.Test
 
-object P01_P09 {
+class P01 {
+  @Test
+  def P01_last1():Unit = {
+    val result = P01.P01_last1(P01.numList)
+    assertEquals(7, result)
+    printf("P01: %d%n", result)
+  }
+
+  @Test
+  def P01_last2():Unit = {
+    val result = P01.P01_last2(P01.fruitList)
+    assertEquals("pear", result)
+    printf("P01: %s%n", result)
+  }
+}
+
+object P01 {
+  val fruitList  = List("peach", "apple", "pear")
+  val numList  = List(1, 2, 3, 4, 5, 6, 7)
+  val palindromeList  = List("peach", "apple", "pear", "apple", "peach")
+  val nestedList = List(List(1,1),2,List(3,List(5,8) ))
+  val nestedList2 = List(List(1,1),List(5,8))
+
   def main(args: Array[String]) {
-    val numList  = List(1, 2, 3, 4, 5, 6, 7)
-    val fruitList  = List("peach", "apple", "pear")
-    val palindromeList  = List("peach", "apple", "pear", "apple", "peach")
-    val nestedList = List(List(1,1),2,List(3,List(5,8) ))
-    val nestedList2 = List(List(1,1),List(5,8))
 
-    printf("P01: %d%n", sumList(numList))
-    printf("P01: %d%n", P01_last1(numList))
-    printf("P01: %s%n", P01_last2(fruitList))
+    printf("%d%n", sumList(numList))
+    
     printf("P01: %s%n", P02_penultimate(fruitList))
 
     printf("P05: %s%n", P05_reverse(fruitList))
+    printf("P05b: %s%n", P05b_reverse(fruitList))
     printf("P05: %s%n", P05_reverseTailRecursion(fruitList))
     printf("P01: %s%n", P05_reverseFunctional(fruitList))
 
@@ -53,6 +72,14 @@ object P01_P09 {
     }
   }
 
+  def P05b_reverse[E](list: List[E]):List[E] = {
+    list match {
+      case Nil => Nil
+      case _ => P05_reverse(list.tail) ::: List(list.head)
+    }
+  }
+
+
   def P05_reverseTailRecursion[E](list: List[E]):List[E] = {
     @tailrec
     def reverse [E](theResult: List[E], theTail: List[E]):List[E] = {
@@ -70,7 +97,7 @@ object P01_P09 {
   }
 
   def P06_palindrome[E](list: List[E]):Boolean = {
-    for (i <- list.indices)
+    for (i <- 0 to (list.size - 1) / 2)
       if (list(i) != list(list.size - i - 1)) {
         return false
       }
