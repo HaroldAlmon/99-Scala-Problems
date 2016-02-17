@@ -1,6 +1,9 @@
-import scala.annotation.tailrec
+package com.translationdata
+
 import org.junit.Assert._
 import org.junit.Test
+
+import scala.annotation.tailrec
 
 class P01 {
   @Test
@@ -49,7 +52,7 @@ object P01 {
     printf("P05: %s%n", P05_reverse(fruitList))
     printf("P05b: %s%n", P05b_reverse(fruitList))
     printf("P05: %s%n", P05_reverseTailRecursion(fruitList))
-    printf("P01: %s%n", P05_reverseFunctional(fruitList))
+    printf("com.translationdata.P01: %s%n", P05_reverseFunctional(fruitList))
 
     printf("P05: %s%n", P05_reverse(numList))
     printf("P05: %s%n", P05_reverseTailRecursion(numList))
