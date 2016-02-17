@@ -7,14 +7,28 @@ class P01 {
   def P01_last1():Unit = {
     val result = P01.P01_last1(P01.numList)
     assertEquals(7, result)
-    printf("P01: %d%n", result)
+    printf("P01_last1: %d%n", result)
   }
 
   @Test
   def P01_last2():Unit = {
     val result = P01.P01_last2(P01.fruitList)
     assertEquals("pear", result)
-    printf("P01: %s%n", result)
+    printf("P01_last2: %s%n", result)
+  }
+
+  @Test
+  def P02_penultimate():Unit = {
+    val result = P01.P02_penultimate(P01.fruitList)
+    assertEquals("apple", result)
+    printf("P02_penultimate: %s%n", result)
+  }
+
+  @Test
+  def P03_kthElement():Unit = {
+    val result = P01.P03_kthElement(4, P01.palindromeList)
+    assertEquals("apple", result)
+    printf("P03_kthElement: %s%n", result)
   }
 }
 
@@ -28,16 +42,15 @@ object P01 {
   def main(args: Array[String]) {
 
     printf("%d%n", sumList(numList))
-    
-    printf("P01: %s%n", P02_penultimate(fruitList))
+
+    printf("P03: %d%n", P03_kthElement(2, numList))
+    printf("P04: %d%n", P04_size(numList))
 
     printf("P05: %s%n", P05_reverse(fruitList))
     printf("P05b: %s%n", P05b_reverse(fruitList))
     printf("P05: %s%n", P05_reverseTailRecursion(fruitList))
     printf("P01: %s%n", P05_reverseFunctional(fruitList))
 
-    printf("P03: %d%n", P03_kthElement(2, numList))
-    printf("P04: %d%n", P04_size(numList))
     printf("P05: %s%n", P05_reverse(numList))
     printf("P05: %s%n", P05_reverseTailRecursion(numList))
     printf("P06: %s%n", P06_palindrome(numList))
