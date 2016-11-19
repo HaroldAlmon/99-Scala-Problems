@@ -88,6 +88,7 @@ object P01 {
     }
   }
 
+  // Will cause stack overflow on large lists...
   def P05b_reverse[E](list: List[E]):List[E] = {
     list match {
       case Nil => Nil
@@ -95,13 +96,13 @@ object P01 {
     }
   }
 
-
+  // Tail recurion avoids stack overflows...
   def P05_reverseTailRecursion[E](list: List[E]):List[E] = {
     @tailrec
-    def reverse [E](theResult: List[E], theTail: List[E]):List[E] = {
+    def reverse [E](theTail: List[E], theResult: List[E]):List[E] = {
       theTail match {
         case Nil => theResult
-        case theHead :: theTail => reverse( theHead :: theResult, theTail )
+        case theHead :: theTail => reverse( theTail, theHead :: theResult )
       }
     }
 
@@ -109,10 +110,11 @@ object P01 {
   }
 
   def P05_reverseFunctional[E](list: List[E]):List[E] = {
-    list.foldLeft(List[E]()) { (theResult, element) => element :: theResult }
+    list.foldLeft( List[E]() ) ( (theResult, element) => element :: theResult )
   }
 
   def P06_palindrome[E](list: List[E]):Boolean = {
+    // Simple example of a for-comprehension that is a foreach loop...
     for (i <- 0 to (list.size - 1) / 2)
       if (list(i) != list(list.size - i - 1)) {
         return false
@@ -121,6 +123,6 @@ object P01 {
   }
 
   def sumList(list:List[Int]) = {
-    list.foldLeft(0) { (total, number) => total + number }
+    list.foldLeft(0) ( (total, number) => total + number )
   }
 }
