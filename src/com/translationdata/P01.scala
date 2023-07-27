@@ -1,5 +1,8 @@
 package com.translationdata
 
+// Tested with junit-4.13.2.jar
+// and hamcrest-core-2.2.jar
+
 import org.junit.Assert._
 import org.junit.Test
 
