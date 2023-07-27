@@ -2,6 +2,7 @@ package com.translationdata
 
 // Tested with junit-4.13.2.jar
 // and hamcrest-core-2.2.jar
+// In IntelliJ, add Jars to Files > Project Structures > Modules > + > Jars or Directories
 
 import org.junit.Assert._
 import org.junit.Test
