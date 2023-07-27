@@ -40,11 +40,11 @@ class P01 {
 }
 
 object P01 {
-  val fruitList  = List("peach", "apple", "pear")
-  val numList  = List(1, 2, 3, 4, 5, 6, 7)
-  val palindromeList  = List("peach", "apple", "pear", "apple", "peach")
-  val nestedList = List(List(1,1),2,List(3,List(5,8) ))
-  val nestedList2 = List(List(1,1),List(5,8))
+  private val fruitList  = List("peach", "apple", "pear")
+  private val numList  = List(1, 2, 3, 4, 5, 6, 7)
+  private val palindromeList  = List("peach", "apple", "pear", "apple", "peach")
+  // val nestedList = List(List(1,1),2,List(3,List(5,8) ))
+  // val nestedList2 = List(List(1,1),List(5,8))
 
   def main(args: Array[String]) {
 
@@ -65,27 +65,27 @@ object P01 {
     //printf("P07: %s%n", P07_flatten(nestedList))
   }
 
-  def P01_last1[E](list: List[E]) = {
+  private def P01_last1[E](list: List[E]) = {
     list.reverse.head
   }
 
-  def P01_last2[E](list: List[E]) = {
+  private def P01_last2[E](list: List[E]) = {
     list.last
   }
 
-  def P02_penultimate[E](list: List[E]) = {
+  private def P02_penultimate[E](list: List[E]) = {
     list(list.size - 2)
   }
 
-  def P03_kthElement[E](position:Int, list: List[E]) = {
+  private def P03_kthElement[E](position:Int, list: List[E]) = {
     list.apply(position - 1)
   }
 
-  def P04_size[E](list: List[E]) = {
+  private def P04_size[E](list: List[E]) = {
     list.size
   }
 
-  def P05_reverse[E](list: List[E]):List[E] = {
+  private def P05_reverse[E](list: List[E]):List[E] = {
     list match {
       case Nil => Nil
       case theHead :: theTail => P05_reverse(theTail) ::: List(theHead)
@@ -93,7 +93,7 @@ object P01 {
   }
 
   // Will cause stack overflow on large lists...
-  def P05b_reverse[E](list: List[E]):List[E] = {
+  private def P05b_reverse[E](list: List[E]):List[E] = {
     list match {
       case Nil => Nil
       case _ => P05_reverse(list.tail) ::: List(list.head)
@@ -101,7 +101,7 @@ object P01 {
   }
 
   // Tail recurion avoids stack overflows...
-  def P05_reverseTailRecursion[E](list: List[E]):List[E] = {
+  private def P05_reverseTailRecursion[E](list: List[E]):List[E] = {
     @tailrec
     def reverse [E](theTail: List[E], theResult: List[E]):List[E] = {
       theTail match {
@@ -113,11 +113,11 @@ object P01 {
     reverse(Nil, list)
   }
 
-  def P05_reverseFunctional[E](list: List[E]):List[E] = {
+  private def P05_reverseFunctional[E](list: List[E]):List[E] = {
     list.foldLeft( List[E]() ) ( (theResult, element) => element :: theResult )
   }
 
-  def P06_palindrome[E](list: List[E]):Boolean = {
+  private def P06_palindrome[E](list: List[E]):Boolean = {
     // Simple example of a for-comprehension that is a foreach loop...
     for (i <- 0 to (list.size - 1) / 2)
       if (list(i) != list(list.size - i - 1)) {
@@ -126,7 +126,7 @@ object P01 {
     true
   }
 
-  def sumList(list:List[Int]) = {
+  private def sumList(list:List[Int]) = {
     list.foldLeft(0) ( (total, number) => total + number )
   }
 }
