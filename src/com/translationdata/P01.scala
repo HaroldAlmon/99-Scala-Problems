@@ -41,9 +41,10 @@ class P01 {
 
 object P01 {
   private val fruitList  = List("peach", "apple", "pear")
-  private val numList  = List(1, 2, 3, 4, 5, 6, 7)
+  private val numList  = List(11, 22, 33, 44, 55, 66, 77)
+//  private val numList  = List(1, 2, 3, 4, 5, 6, 7)
   private val palindromeList  = List("peach", "apple", "pear", "apple", "peach")
-  // val nestedList = List(List(1,1),2,List(3,List(5,8) ))
+  val nestedList = List(List(1,1),2,List(3,List(5,8) ))
   // val nestedList2 = List(List(1,1),List(5,8))
 
   def main(args: Array[String]) {
@@ -51,6 +52,7 @@ object P01 {
     printf("%d%n", sumList(numList))
 
     printf("P03: %d%n", P03_kthElement(2, numList))
+    printf("P03: %d%n", P03_kthElement2(3, numList))
     printf("P04: %d%n", P04_size(numList))
 
     printf("P05: %s%n", P05_reverse(fruitList))
@@ -62,7 +64,11 @@ object P01 {
     printf("P05: %s%n", P05_reverseTailRecursion(numList))
     printf("P06: %s%n", P06_palindrome(numList))
     printf("P06: %s%n", P06_palindrome(palindromeList))
-    //printf("P07: %s%n", P07_flatten(nestedList))
+    // printf("P07: %s%n", P07_flattenList(nestedList))
+  }
+
+  private def sumList(list: List[Int]) = {
+    list.foldLeft(0)((total, number) => total + number)
   }
 
   private def P01_last1[E](list: List[E]) = {
@@ -79,6 +85,14 @@ object P01 {
 
   private def P03_kthElement[E](position:Int, list: List[E]) = {
     list.apply(position - 1)
+  }
+
+  private def P03_kthElement2[E](position: Int, list: List[E]) = {
+    println("Pos = " + position)
+    list {
+      position - 1
+    }
+      list(position - 1)
   }
 
   private def P04_size[E](list: List[E]) = {
@@ -109,7 +123,6 @@ object P01 {
         case theHead :: theTail => reverse( theTail, theHead :: theResult )
       }
     }
-
     reverse(Nil, list)
   }
 
@@ -126,7 +139,16 @@ object P01 {
     true
   }
 
-  private def sumList(list:List[Int]) = {
-    list.foldLeft(0) ( (total, number) => total + number )
+  /*
+  private def P07_flattenList[E](list: List[E]): List[E] = {
+    @tailrec
+    def reverse[E](theTail: List[E], theResult: List[E]): List[E] = {
+      theTail match {
+        case Nil => theResult
+        case theHead :: theTail => reverse(theTail, theHead :: theResult)
+      }
+    }
   }
+*/
+
 }
