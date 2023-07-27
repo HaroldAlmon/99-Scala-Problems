@@ -42,10 +42,8 @@ class P01 {
 object P01 {
   private val fruitList  = List("peach", "apple", "pear")
   private val numList  = List(11, 22, 33, 44, 55, 66, 77)
-//  private val numList  = List(1, 2, 3, 4, 5, 6, 7)
   private val palindromeList  = List("peach", "apple", "pear", "apple", "peach")
   val nestedList = List(List(1,1),2,List(3,List(5,8) ))
-  // val nestedList2 = List(List(1,1),List(5,8))
 
   def main(args: Array[String]) {
 
@@ -64,7 +62,7 @@ object P01 {
     printf("P05: %s%n", P05_reverseTailRecursion(numList))
     printf("P06: %s%n", P06_palindrome(numList))
     printf("P06: %s%n", P06_palindrome(palindromeList))
-    // printf("P07: %s%n", P07_flattenList(nestedList))
+    //printf("P07: %s%n", P07_flattenList(nestedList))
   }
 
   private def sumList(list: List[Int]) = {
@@ -89,10 +87,7 @@ object P01 {
 
   private def P03_kthElement2[E](position: Int, list: List[E]) = {
     println("Pos = " + position)
-    list {
-      position - 1
-    }
-      list(position - 1)
+    list(position - 1)
   }
 
   private def P04_size[E](list: List[E]) = {
@@ -102,7 +97,8 @@ object P01 {
   private def P05_reverse[E](list: List[E]):List[E] = {
     list match {
       case Nil => Nil
-      case theHead :: theTail => P05_reverse(theTail) ::: List(theHead)
+      case theHead :: theTail // This splits the list into the frst element and the list minus the first element.
+        => P05_reverse(theTail) ::: List(theHead)  // Same as next function just a more elegant way.
     }
   }
 
@@ -142,6 +138,9 @@ object P01 {
   /*
   private def P07_flattenList[E](list: List[E]): List[E] = {
     @tailrec
+    match list(0)
+    case scalar =>
+
     def reverse[E](theTail: List[E], theResult: List[E]): List[E] = {
       theTail match {
         case Nil => theResult
@@ -152,3 +151,16 @@ object P01 {
 */
 
 }
+
+
+/*
+In general:
+
+  :: - adds an element at the beginning of a list and returns a list with the added element
+::: - concatenates two lists and returns the concatenated list
+
+For example:
+
+1 :: List(2, 3)             will return     List(1, 2, 3)
+List(1, 2) ::: List(3, 4)   will return     List(1, 2, 3, 4)
+*/
