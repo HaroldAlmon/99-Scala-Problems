@@ -40,13 +40,15 @@ class P01 {
 }
 
 object P01 {
-  private val fruitList  = List("peach", "apple", "pear")
-  private val numList  = List(11, 22, 33, 44, 55, 66, 77)
-  private val palindromeList  = List("peach", "apple", "pear", "apple", "peach")
-  val nestedList = List(List(1,1),2,List(3,List(5,8) ))
+  private val fruitList = List("peach", "apple", "pear")
+  private val numList = List(11, 22, 33, 44, 55, 66, 77)
+  private val palindromeList = List("peach", "apple", "pear", "apple", "peach")
+  val nestedList = List(List(0, 1), 2, List(3, List(5, 8)))
 
   def main(args: Array[String]) {
-
+    printf("P05: %s%n", P05_reverse(fruitList))
+    printf("P05: %s%n", P05_reverse(fruitList))
+    /*
     printf("%d%n", sumList(numList))
 
     printf("P03: %d%n", P03_kthElement(2, numList))
@@ -61,7 +63,10 @@ object P01 {
     printf("P05: %s%n", P05_reverse(numList))
     printf("P05: %s%n", P05_reverseTailRecursion(numList))
     printf("P06: %s%n", P06_palindrome(numList))
-    printf("P06: %s%n", P06_palindrome(palindromeList))
+ */
+   // printf("P06: %s%n", P06_palindrome(palindromeList))
+   // printf("Test_08: %s%n", Test_08(fruitList))
+
     //printf("P07: %s%n", P07_flattenList(nestedList))
   }
 
@@ -81,7 +86,7 @@ object P01 {
     list(list.size - 2)
   }
 
-  private def P03_kthElement[E](position:Int, list: List[E]) = {
+  private def P03_kthElement[E](position: Int, list: List[E]) = {
     list.apply(position - 1)
   }
 
@@ -94,16 +99,18 @@ object P01 {
     list.size
   }
 
-  private def P05_reverse[E](list: List[E]):List[E] = {
+  private def P05_reverse[E](list: List[E]): List[E] = {
+    // @tailrec
+
     list match {
       case Nil => Nil
       case theHead :: theTail // This splits the list into the frst element and the list minus the first element.
-        => P05_reverse(theTail) ::: List(theHead)  // Same as next function just a more elegant way.
+      => P05_reverse(theTail) ::: List(theHead) // Same as next function just a more elegant way.
     }
   }
 
   // Will cause stack overflow on large lists...
-  private def P05b_reverse[E](list: List[E]):List[E] = {
+  private def P05b_reverse[E](list: List[E]): List[E] = {
     list match {
       case Nil => Nil
       case _ => P05_reverse(list.tail) ::: List(list.head)
@@ -111,22 +118,37 @@ object P01 {
   }
 
   // Tail recurion avoids stack overflows...
-  private def P05_reverseTailRecursion[E](list: List[E]):List[E] = {
+  private def P05_reverseTailRecursion[E](list: List[E]): List[E] = {
     @tailrec
-    def reverse [E](theTail: List[E], theResult: List[E]):List[E] = {
+    def reverse[E](theTail: List[E], theResult: List[E]): List[E] = {
       theTail match {
         case Nil => theResult
-        case theHead :: theTail => reverse( theTail, theHead :: theResult )
+        case theHead :: theTail =>
+          reverse(theTail, theHead :: theResult)
       }
     }
+
     reverse(Nil, list)
   }
 
-  private def P05_reverseFunctional[E](list: List[E]):List[E] = {
-    list.foldLeft( List[E]() ) ( (theResult, element) => element :: theResult )
+  private def P05_flatten_test[E](list: List[E]): List[E] = {
+    @tailrec
+    def flatten[E](theList: List[E], theResult: List[E]): List[E] = {
+      theList match {
+        case Nil => theResult
+        case theHead :: theTail =>
+          flatten(theHead :: theResult, theTail)
+      }
+    }
+
+    flatten(Nil, list)
   }
 
-  private def P06_palindrome[E](list: List[E]):Boolean = {
+  private def P05_reverseFunctional[E](list: List[E]): List[E] = {
+    list.foldLeft(List[E]())((theResult, element) => element :: theResult)
+  }
+
+  private def P06_palindrome[E](list: List[E]): Boolean = {
     // Simple example of a for-comprehension that is a foreach loop...
     for (i <- 0 to (list.size - 1) / 2)
       if (list(i) != list(list.size - i - 1)) {
@@ -134,23 +156,106 @@ object P01 {
       }
     true
   }
-
   /*
   private def P07_flattenList[E](list: List[E]): List[E] = {
-    @tailrec
-    match list(0)
-    case scalar =>
+    //@tailrec
 
-    def reverse[E](theTail: List[E], theResult: List[E]): List[E] = {
+    def flatten[E](theTail: List[E], theResult: List[E]): List[E] = {
       theTail match {
-        case Nil => theResult
-        case theHead :: theTail => reverse(theTail, theHead :: theResult)
+        // case Nil => theResult
+        case theHead :: theTail =>
+          //println(theHead)
+          //println(theTail)
+          P07_flattenList(theHead) ::: P07_flattenList(theTail)
+
+        case element => element
       }
+    }
+
+    list match {
+      case theHead :: theTail =>
+        P07_flattenList(theHead) ::: P07_flattenList(theTail)
+      case _ => list
+    }
+  }
+  */
+
+  private def P05_reverseTailRecursion2[E](list: List[E]): List[E] = {
+   // @tailrec
+    //def reverse[E](theTail: List[E], theResult: List[E]): List[E] = {
+      list match {
+        case theHead :: theTail =>
+          theTail ::: P05_reverseTailRecursion2(theTail)
+
+        //case _ => List(list)
+      }
+  }
+
+    //reverse(Nil, list)
+}
+  /*
+  private def Test_08[E](list: List[E]): List[E] = {
+    list match {
+      case theHead :: theTail =>
+        List(theHead)
     }
   }
 */
+  /*
+  private def P08_flattenList[E](list: List[E]): List[E] = {
+      list match {
+        case theHead :: theTail =>
 
-}
+            // Part 1: Analyse theHead
+            theHead match {
+              case h :: t =>
+
+                // Part 1: Analyse theTail
+                theTail match {
+                  case h2 :: t2 => // The theTail is a list
+                    P08_flattenList(theHead) ::: P08_flattenList(theTail) // Case 1. theHead and theTail are lists
+
+                  case _ =>
+                    P08_flattenList(theHead) ::: List(theTail)            // Case 2. theHead is a list, theTail is an element
+              }
+
+              // Part 2. theHead is an element
+              case _ =>
+                // Part 2: Analyse theTail
+                theTail match {
+                  case h3 :: t3 => // theTail is a list
+                    List(theHead) ::: P08_flattenList(theTail)               // Case 3. theHead is an element, theTail is a list
+
+                  case _ =>
+                    List(theHead) ::: List(theTail)                          // Case 2. theHead is an element, theTail is an element
+              }
+
+            }
+        case _ => List(list) // convert element to a list
+      }
+    }
+  */
+
+/*
+  private def P08_flattenList[E](list: List[E]): List[E] = {
+    list match {
+      case theHead :: theTail =>
+
+        // Part 1: Analyse theHead
+        theHead match {
+          case h :: t =>
+
+            // Part 1: Analyse theTail
+            theTail match {
+              case h2 :: t2 => // The theTail is a list
+                P08_flattenList(theHead) ::: P08_flattenList(theTail) // Case 1. theHead and theTail are lists
+            }
+        }
+    }
+  }
+  */
+
+//}
 
 
 /*
