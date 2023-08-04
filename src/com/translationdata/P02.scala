@@ -22,7 +22,7 @@ object P02 {
     printf("Second last element in list: %s%n", P02_penultimate_element(num_list))
     printf("List size : %s%n", P02_number_of_elements(num_list))
     printf("Imperative reverse the list : %s%n", P02_reverse_list(num_list))
-    printf("Functional reverse list : %s%n", P02_reverse_list_advanced(num_list))
+    printf("Functional reverse list : %s%n", P02_reverse_list_2(num_list))
     printf( "Factorial is %s%n", myfactorial(8) )
     printf( "Factorial with tail recursion is %s%n", myfactorialAdvanced(8) )
   }
@@ -48,10 +48,10 @@ object P02 {
     }
   }
 
-  private def P02_reverse_list_advanced[E](list: List[E]): List[E] = {
+  private def P02_reverse_list_2[E](list: List[E]): List[E] = {
     list match {
       case headElement :: tailList =>
-        P02_reverse_list_advanced(tailList) ::: List(headElement)
+        P02_reverse_list_2(tailList) ::: List(headElement)
 
       case List() => list // Reverse of any empty list is an empty list!
       //case Nil => list
