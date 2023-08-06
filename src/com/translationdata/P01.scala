@@ -205,7 +205,8 @@ object P01 {
   }
 */
 
-  /*
+
+ /*
   private def P08_flattenList[E](list: List[E]): List[E] = {
     list match {
       case theHead :: theTail =>
@@ -217,7 +218,7 @@ object P01 {
             // Part 1: Analyse theTail
             theTail match {
               case h2 :: t2 => // The theTail is a list
-                P08_flattenList(theHead) ::: P08_flattenList() // Case 1. theHead and theTail are lists
+                P08_flattenList(theHead) ::: P08_flattenList(theTail) // Case 1. theHead and theTail are lists
 
               case _ =>
                 P08_flattenList(theHead) ::: List(theTail) // Case 2. theHead is a list, theTail is an element
