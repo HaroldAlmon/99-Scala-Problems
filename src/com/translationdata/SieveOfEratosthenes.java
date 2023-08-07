@@ -5,9 +5,13 @@ package com.translationdata;
 //
 //package com.translationdata.util;
 
+// How to use this class: Just create a new instance of the class and pass in the n variable.
+// The class will build an array of all the primes up to n, then call isPrime(n) to determine if n is prime.
+
 public class SieveOfEratosthenes {
     private boolean[] primes;
-
+    // Generate all the primes <= n
+    // Returns the number of primes found.
     public int generatePrimes(int n) {
         primes = new boolean[n + 1];
 
@@ -28,11 +32,11 @@ public class SieveOfEratosthenes {
         int count = 0;
         for( int position = 2; position <= n; position += 1) {
             if(primes[position] == true) {
-                //System.out.printf("%d%n", position);
+                // System.out.printf("%d%n", position);
                 count += 1;
             }
         }
-        //System.out.printf("Generated %d primes%n", count);
+        System.out.printf("Generated %d primes%n", count);
         return count;
     }
 
