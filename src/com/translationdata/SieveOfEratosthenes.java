@@ -23,7 +23,6 @@ public class SieveOfEratosthenes {
 
         for (int primeNumber = 2; primeNumber <= upperBound; primeNumber += 1) {
             if( primes[primeNumber] == true) {
-                // Not sure why I started at primeNumber * primeNumber instead of primeNumber * 2 but this seems to work.
                 for( int notPrime = primeNumber * primeNumber; notPrime <= n; notPrime += primeNumber)
                     primes[notPrime] = false;
             }
